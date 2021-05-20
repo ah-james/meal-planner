@@ -1,6 +1,6 @@
 import { createStackNavigator } from 'react-navigation-stack'
 import { createAppContainer } from 'react-navigation'
-import FoodCategoriesContainer from '../containers/FoodCategoriesContainer'
+import FoodCategoriesContainer from '../containers/CategoriesContainer'
 import CategoryMealsContainer from '../containers/CategoryMealsContainer'
 import MealContainer from '../containers/MealContainer'
 
