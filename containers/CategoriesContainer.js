@@ -9,7 +9,10 @@ const CategoriesContainer = props => {
         return(
             // make each grid item touchable, linked to the CategoryMeals container
             <TouchableOpacity onPress={() => {
-                props.navigation.navigate({ routeName: 'CategoryMeals' })
+                props.navigation.navigate('CategoryMeals', {
+                    // set params object with itemData
+                    categoryId: itemData.item.id
+                })
             }} >
                 <View style={styles.gridItem}>
                     {/* place title from CATEGORIES data in Text tag */}
@@ -28,11 +31,6 @@ const CategoriesContainer = props => {
 CategoriesContainer.navigationOptions = {
     // Add title to header
     headerTitle: 'Meal Categories',
-    // style header
-    headerStyle: {
-        backgroundColor: Platform.OS === 'android' ? Colors.primaryColor : '',
-    },
-    headerTintColor: Platform.OS === 'ios' ? Colors.primaryColor : 'black'
 }
 
 const styles = StyleSheet.create({
