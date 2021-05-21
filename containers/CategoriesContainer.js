@@ -1,16 +1,20 @@
 import React from 'react'
-import { View, Text, StyleSheet, Button } from 'react-native'
+import { View, Text, StyleSheet, FlatList } from 'react-native'
+import { CATEGORIES } from '../data/dummy-data'
+
+// create variable to use in renderItem for FlatList
+const renderGridItem = itemData => {
+    return(
+        <View style={styles.gridItem}>
+            {/* place title from CATEGORIES data in Text tag */}
+            <Text>{itemData.item.title}</Text>
+        </View>
+    )
+}
 
 const FoodCategoriesContainer = props => {
-    console.log(props)
     return (
-        <View style={styles.screen}>
-            <Text>Categories Page</Text>
-            <Button title="Go To Meals Page" onPress={() => {
-                // use navigate prop function to navigate to Category Meals page
-                props.navigation.navigate({routeName: 'CategoryMeals'})
-            }} />
-        </View>
+        <FlatList numColumns={2} data={CATEGORIES} renderItem={renderGridItem} />
     )
 }
 
@@ -19,6 +23,11 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+    },
+    gridItem: {
+        flex: 1,
+        margin: 15,
+        height: 150,
     },
 })
 
