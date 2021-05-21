@@ -1,11 +1,11 @@
 import { createStackNavigator } from 'react-navigation-stack'
 import { createAppContainer } from 'react-navigation'
-import FoodCategoriesContainer from '../containers/CategoriesContainer'
+import CategoriesContainer from '../containers/CategoriesContainer'
 import CategoryMealsContainer from '../containers/CategoryMealsContainer'
 import MealContainer from '../containers/MealContainer'
 
 const MealsNavigator = createStackNavigator({
-    Categories: FoodCategoriesContainer,
+    Categories: CategoriesContainer,
     CategoryMeals: CategoryMealsContainer,
     MealDetail: MealContainer,
 })
