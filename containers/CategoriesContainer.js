@@ -1,7 +1,6 @@
 import React from 'react'
-import { View, Text, StyleSheet, FlatList, TouchableOpacity, Platform } from 'react-native'
+import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native'
 import { CATEGORIES } from '../data/dummy-data'
-import Colors from '../constants/Colors'
 
 const CategoriesContainer = props => {
     // create variable to use in renderItem for FlatList
@@ -9,6 +8,7 @@ const CategoriesContainer = props => {
         return(
             // make each grid item touchable, linked to the CategoryMeals container
             <TouchableOpacity onPress={() => {
+                // navigate to CategoryMeals from MealsNavigator object
                 props.navigation.navigate('CategoryMeals', {
                     // set params object with itemData
                     categoryId: itemData.item.id

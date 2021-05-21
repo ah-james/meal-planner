@@ -1,7 +1,6 @@
 import React from 'react'
-import { View, Text, StyleSheet, Button, Platform } from 'react-native'
+import { View, Text, StyleSheet, Button } from 'react-native'
 import { CATEGORIES } from '../data/dummy-data'
-import Colors from '../constants/Colors'
 
 const CategoryMealsContainer = props => {
     // set categoryId using the params passed from CategoriesContainer
@@ -20,6 +19,7 @@ const CategoryMealsContainer = props => {
 }
 
 CategoryMealsContainer.navigationOptions = navigationData => {
+    // use same variables created in CategoryMealsContainer since they aren't global variables and can't be read here
     const categoryId = navigationData.navigation.getParam('categoryId')
     const selectedCategory = CATEGORIES.find(category => category.id === categoryId)
 
