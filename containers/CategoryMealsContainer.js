@@ -12,7 +12,11 @@ const CategoryMealsContainer = props => {
                 complexity={itemData.item.complexity} 
                 image={itemData.item.imageUrl} 
                 duration={itemData.item.duration}
-                onSelect={() => {}}
+                onSelect={() => {
+                    props.navigation.navigate('MealDetail', {
+                        mealId: itemData.item.id
+                    })
+                }}
             />
         )
     }
