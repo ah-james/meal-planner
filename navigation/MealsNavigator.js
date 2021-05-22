@@ -9,6 +9,7 @@ import MealContainer from '../containers/MealContainer'
 import Colors from '../constants/Colors'
 import FavoritesContainer from '../containers/FavoritesContainer'
 import { Ionicons } from '@expo/vector-icons'
+import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs'
 
 const MealsNavigator = createStackNavigator({
     // first argument in createStackNavigator is object of screens
@@ -30,21 +31,35 @@ const MealsNavigator = createStackNavigator({
     }
 })
 
-const FavoritesTabNavigator = createBottomTabNavigator({
-    Meals: {screen: MealsNavigator, navigationOptions: {
-        tabBarIcon: (tabInfo) => {
-            return <Ionicons name='ios-restaurant' size={22} color={tabInfo.tintColor} />
+const tabScreenConfig = {
+        Meals: {screen: MealsNavigator, navigationOptions: {
+            tabBarIcon: (tabInfo) => {
+                return <Ionicons name='ios-restaurant' size={22} color={tabInfo.tintColor} />
+            },
+            tabBarColor: Colors.primaryColor,
         }
-    }},
-    Favorites: {screen: FavoritesContainer, navigationOptions: {
-        tabBarIcon: (tabInfo) => {
-            return <Ionicons name='ios-star' size={22} color={tabInfo.tintColor} />
+        
+    },
+        Favorites: {screen: FavoritesContainer, navigationOptions: {
+            tabBarIcon: (tabInfo) => {
+                return <Ionicons name='ios-star' size={22} color={tabInfo.tintColor} />
+            },
+            tabBarColor: Colors.secondaryColor,
         }
-    }},
-}, {
-    tabBarOptions: {
-        activeTintColor: Colors.secondaryColor
     }
-}) 
+}
+
+const FavoritesTabNavigator = Platform.OS === 'android' 
+    ? createMaterialBottomTabNavigator(tabScreenConfig, {
+        activeTintColor: Colors.secondaryColor,
+        shifting: true,
+    })
+    : createBottomTabNavigator(
+        tabScreenConfig, {
+        tabBarOptions: {
+            activeTintColor: Colors.secondaryColor
+        }
+    }
+) 
 
 export default createAppContainer(FavoritesTabNavigator)
