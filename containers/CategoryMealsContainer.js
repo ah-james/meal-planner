@@ -1,26 +1,8 @@
 import React from 'react'
-import { View, Text, StyleSheet, FlatList, Platform } from 'react-native'
 import { CATEGORIES, MEALS } from '../data/dummy-data'
-import MealCard from '../components/MealCard'
+import MealList from '../components/MealList'
 
 const CategoryMealsContainer = props => {
-    const renderMeal = itemData => {
-        return(
-            <MealCard 
-                title={itemData.item.title} 
-                affordability={itemData.item.affordability} 
-                complexity={itemData.item.complexity} 
-                image={itemData.item.imageUrl} 
-                duration={itemData.item.duration}
-                onSelect={() => {
-                    props.navigation.navigate('MealDetail', {
-                        mealId: itemData.item.id
-                    })
-                }}
-            />
-        )
-    }
-
     // set categoryId using the params passed from CategoriesContainer
     const categoryId = props.navigation.getParam('categoryId')
 
@@ -33,11 +15,7 @@ const CategoryMealsContainer = props => {
 
     // create selected category by using find method on CATEGORIES data set to find when the specific category ID is equal to categoryId variable
     const selectedCategory = CATEGORIES.find(category => category.id === categoryId)
-    return (
-        <View style={styles.screen}>
-            <FlatList data={filteredMeals} renderItem={renderMeal} style={{width: '95%'}} />
-        </View>
-    )
+    return <MealList  filteredMeals={filteredMeals} navigation={props.navigation} />
 }
 
 CategoryMealsContainer.navigationOptions = navigationData => {
@@ -49,13 +27,5 @@ CategoryMealsContainer.navigationOptions = navigationData => {
         headerTitle: selectedCategory.title,
     }
 }
-
-const styles = StyleSheet.create({
-    screen: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-})
 
 export default CategoryMealsContainer
