@@ -1,19 +1,32 @@
 import React from 'react'
-import { View, Text, StyleSheet, Button } from 'react-native'
-import { CATEGORIES } from '../data/dummy-data'
+import { View, Text, StyleSheet, FlatList, Platform } from 'react-native'
+import { CATEGORIES, MEALS } from '../data/dummy-data'
 
 const CategoryMealsContainer = props => {
+    const renderMeal = itemData => {
+        console.log(itemData)
+        return(
+            <View>
+                <Text>{itemData.item.title}</Text>
+            </View>
+        )
+    }
+
     // set categoryId using the params passed from CategoriesContainer
     const categoryId = props.navigation.getParam('categoryId')
+
+    // filter out meals unrelated to current category
+    const filteredMeals = MEALS.filter( 
+        // return true if meal's category IDs includes categoryId variable
+        // use indexOf because if meal's listed category IDs doesn't include categoryId then index would be -1
+        meal => meal.categoryIds.indexOf(categoryId) >= 0
+    )
 
     // create selected category by using find method on CATEGORIES data set to find when the specific category ID is equal to categoryId variable
     const selectedCategory = CATEGORIES.find(category => category.id === categoryId)
     return (
         <View style={styles.screen}>
-            <Text>{selectedCategory.title}</Text>
-            <Button title="Go to Single Meal Page" onPress={() => {
-                props.navigation.navigate('MealDetail')
-            }} />
+            <FlatList data={filteredMeals} renderItem={renderMeal} />
         </View>
     )
 }
