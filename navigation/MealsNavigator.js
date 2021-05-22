@@ -5,25 +5,21 @@ import { createAppContainer } from 'react-navigation'
 import { createBottomTabNavigator } from 'react-navigation-tabs'
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs'
 import { createDrawerNavigator } from 'react-navigation-drawer'
+import { Ionicons } from '@expo/vector-icons'
+
 import CategoriesContainer from '../containers/CategoriesContainer'
 import CategoryMealsContainer from '../containers/CategoryMealsContainer'
 import MealContainer from '../containers/MealContainer'
 import Colors from '../constants/Colors'
 import FavoritesContainer from '../containers/FavoritesContainer'
 import FiltersContainer from '../containers/FiltersContainer'
-import { Ionicons } from '@expo/vector-icons'
-
-
 
 const defaultNavOptions = {
-    // second argument in createStackNavigator allows you to configure the navigator
     // defaultNavigationOptions sets up options applied to every screen
-    defaultNavigationOptions: {
-        headerStyle: {
-            backgroundColor: Platform.OS === 'android' ? Colors.primaryColor : '',
-        },
-        headerTintColor: Platform.OS === 'ios' ? Colors.primaryColor : 'black',
-    }
+    headerStyle: {
+        backgroundColor: Platform.OS === 'android' ? Colors.primaryColor : '',
+    },
+    headerTintColor: Platform.OS === 'ios' ? Colors.primaryColor : 'black',
 }
 
 // Basic Screen Flow Navigator
@@ -38,6 +34,7 @@ const MealsNavigator = createStackNavigator({
     MealDetail: MealContainer,
     }, 
     {
+        // second argument in createStackNavigator allows you to configure the navigator
         defaultNavigationOptions: defaultNavOptions
     }
 )
@@ -91,4 +88,4 @@ const MainNavigator = createDrawerNavigator({
     Filters: FavoritesNavigator
 })
 
-export default createAppContainer(FavoritesTabNavigator)
+export default createAppContainer(MainNavigator)

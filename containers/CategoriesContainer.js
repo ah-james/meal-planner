@@ -35,7 +35,7 @@ CategoriesContainer.navigationOptions = navData => {
     return{
         // Add title to header
         headerTitle: 'Meal Categories',
-        headerLeft: <HeaderButtons HeaderButtonComponent={HeaderButton}>
+        headerLeft: () => <HeaderButtons HeaderButtonComponent={HeaderButton}>
             < Item title="Menu" iconName='ios-menu' onPress={() => {
                 navData.navigation.toggleDrawer()
             }} />

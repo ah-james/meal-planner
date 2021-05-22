@@ -1,5 +1,6 @@
 import React from 'react'
 import { FlatList, StyleSheet, View } from 'react-native'
+
 import MealCard from './MealCard'
 
 const MealList = props => {

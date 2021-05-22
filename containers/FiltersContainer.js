@@ -15,7 +15,7 @@ const FiltersContainer = props => {
 FiltersContainer.navigationOptions = navData => {
     return{
         headerTitle: 'Filter Meals',
-        headerLeft: <HeaderButtons HeaderButtonComponent={HeaderButton}>
+        headerLeft: () => <HeaderButtons HeaderButtonComponent={HeaderButton}>
             <Item title="menu" iconName="ios-menu" onPress={() => {
                 navData.navigation.toggleDrawer()
             }} />

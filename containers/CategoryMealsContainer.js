@@ -1,4 +1,5 @@
 import React from 'react'
+
 import { CATEGORIES, MEALS } from '../data/dummy-data'
 import MealList from '../components/MealList'
 
