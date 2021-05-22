@@ -1,3 +1,4 @@
+import React from 'react'
 import { createStackNavigator } from 'react-navigation-stack'
 import { Platform } from 'react-native'
 import { createAppContainer } from 'react-navigation'
@@ -7,6 +8,7 @@ import CategoryMealsContainer from '../containers/CategoryMealsContainer'
 import MealContainer from '../containers/MealContainer'
 import Colors from '../constants/Colors'
 import FavoritesContainer from '../containers/FavoritesContainer'
+import { Ionicons } from '@expo/vector-icons'
 
 const MealsNavigator = createStackNavigator({
     // first argument in createStackNavigator is object of screens
@@ -29,8 +31,20 @@ const MealsNavigator = createStackNavigator({
 })
 
 const FavoritesTabNavigator = createBottomTabNavigator({
-    Meals: MealsNavigator,
-    Favorites: FavoritesContainer,
+    Meals: {screen: MealsNavigator, navigationOptions: {
+        tabBarIcon: (tabInfo) => {
+            return <Ionicons name='ios-restaurant' size={22} color={tabInfo.tintColor} />
+        }
+    }},
+    Favorites: {screen: FavoritesContainer, navigationOptions: {
+        tabBarIcon: (tabInfo) => {
+            return <Ionicons name='ios-star' size={22} color={tabInfo.tintColor} />
+        }
+    }},
+}, {
+    tabBarOptions: {
+        activeTintColor: Colors.secondaryColor
+    }
 }) 
 
 export default createAppContainer(FavoritesTabNavigator)
