@@ -3,13 +3,17 @@ import { createStackNavigator } from 'react-navigation-stack'
 import { Platform } from 'react-native'
 import { createAppContainer } from 'react-navigation'
 import { createBottomTabNavigator } from 'react-navigation-tabs'
+import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs'
+import { createDrawerNavigator } from 'react-navigation-drawer'
 import CategoriesContainer from '../containers/CategoriesContainer'
 import CategoryMealsContainer from '../containers/CategoryMealsContainer'
 import MealContainer from '../containers/MealContainer'
 import Colors from '../constants/Colors'
 import FavoritesContainer from '../containers/FavoritesContainer'
+import FiltersContainer from '../containers/FiltersContainer'
 import { Ionicons } from '@expo/vector-icons'
-import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs'
+
+
 
 const defaultNavOptions = {
     // second argument in createStackNavigator allows you to configure the navigator
@@ -22,6 +26,7 @@ const defaultNavOptions = {
     }
 }
 
+// Basic Screen Flow Navigator
 const MealsNavigator = createStackNavigator({
     // first argument in createStackNavigator is object of screens
     Categories: {
@@ -44,6 +49,11 @@ const FavoritesNavigator = createStackNavigator({
     defaultNavigationOptions: defaultNavOptions
 })
 
+const FiltersNavigator = createStackNavigator({
+    Filters: FiltersContainer
+})
+
+// create variable of object to dry up FavoritesTabNavigator
 const tabScreenConfig = {
         Meals: {screen: MealsNavigator, navigationOptions: {
             tabBarIcon: (tabInfo) => {
@@ -62,6 +72,7 @@ const tabScreenConfig = {
     }
 }
 
+// FavoritesTabNavigator to create bottom tab bar to shift from recipies to favorites
 const FavoritesTabNavigator = Platform.OS === 'android' 
     ? createMaterialBottomTabNavigator(tabScreenConfig, {
         activeTintColor: Colors.secondaryColor,
@@ -73,6 +84,11 @@ const FavoritesTabNavigator = Platform.OS === 'android'
             activeTintColor: Colors.secondaryColor
         }
     }
-) 
+)
+
+const MainNavigator = createDrawerNavigator({
+    FavTab: FavoritesTabNavigator,
+    Filters: FavoritesNavigator
+})
 
 export default createAppContainer(FavoritesTabNavigator)
