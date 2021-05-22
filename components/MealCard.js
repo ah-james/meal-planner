@@ -1,6 +1,8 @@
 import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, ImageBackground } from 'react-native'
 
+import DefaultText from './DefaultText'
+
 const MealCard = props => {
     return(
         <View style={styles.mealCard}>
@@ -14,9 +16,9 @@ const MealCard = props => {
                         </ImageBackground>
                     </View>
                     <View style={{...styles.mealRow, ...styles.detail}}>
-                        <Text style={{fontFamily: 'open-sans'}}>{props.affordability}</Text>
-                        <Text>{props.complexity}</Text>
-                        <Text>{props.duration} Minutes</Text>
+                        <DefaultText>{props.affordability}</DefaultText>
+                        <DefaultText>{props.complexity}</DefaultText>
+                        <DefaultText>{props.duration} Minutes</DefaultText>
                     </View>
                 </View>
             </TouchableOpacity>
