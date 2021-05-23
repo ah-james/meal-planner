@@ -1,8 +1,10 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
+import { View, StyleSheet } from 'react-native' 
 
 import { CATEGORIES } from '../data/dummy-data'
 import MealList from '../components/MealList'
+import DefaultText from '../components/DefaultText'
 
 const CategoryMealsContainer = props => {
     // set categoryId using the params passed from CategoriesContainer
@@ -18,6 +20,14 @@ const CategoryMealsContainer = props => {
         meal => meal.categoryIds.indexOf(categoryId) >= 0
     )
 
+    if (displayMeals.length === 0) {
+        return(
+            <View style={styles.text}>
+                <DefaultText>All Meals Filtered Out</DefaultText>
+            </View>
+        )
+    }
+
     return <MealList  filteredMeals={displayMeals} navigation={props.navigation} />
 }
 
@@ -30,5 +40,13 @@ CategoryMealsContainer.navigationOptions = navigationData => {
         headerTitle: selectedCategory.title,
     }
 }
+
+const styles = StyleSheet.create({
+    text: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+    }
+})
 
 export default CategoryMealsContainer
