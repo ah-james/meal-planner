@@ -1,22 +1,24 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 
-import { CATEGORIES, MEALS } from '../data/dummy-data'
+import { CATEGORIES } from '../data/dummy-data'
 import MealList from '../components/MealList'
 
 const CategoryMealsContainer = props => {
     // set categoryId using the params passed from CategoriesContainer
     const categoryId = props.navigation.getParam('categoryId')
 
+    // retreive data from state & return it
+    const availableMeals = useSelector(state => state.meals.filteredMeals)
+
     // filter out meals unrelated to current category
-    const filteredMeals = MEALS.filter( 
+    const displayMeals = availableMeals.filter( 
         // return true if meal's category IDs includes categoryId variable
         // use indexOf because if meal's listed category IDs doesn't include categoryId then index would be -1
         meal => meal.categoryIds.indexOf(categoryId) >= 0
     )
 
-    // create selected category by using find method on CATEGORIES data set to find when the specific category ID is equal to categoryId variable
-    const selectedCategory = CATEGORIES.find(category => category.id === categoryId)
-    return <MealList  filteredMeals={filteredMeals} navigation={props.navigation} />
+    return <MealList  filteredMeals={displayMeals} navigation={props.navigation} />
 }
 
 CategoryMealsContainer.navigationOptions = navigationData => {
