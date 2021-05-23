@@ -6,7 +6,7 @@ import MealList from '../components/MealList'
 import HeaderButton from '../components/HeaderButton'
 
 const FavoritesContainer = props => {
-    const favoriteMeals = useSelector(state => state.meals.meals)
+    const favoriteMeals = useSelector(state => state.meals.favoriteMeals)
 
     return <MealList filteredMeals={favoriteMeals} navigation={props.navigation} />
 }
