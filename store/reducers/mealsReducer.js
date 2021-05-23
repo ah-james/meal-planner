@@ -1,5 +1,6 @@
+import { FA5Style } from '@expo/vector-icons/build/FontAwesome5'
 import { MEALS } from '../../data/dummy-data'
-import { TOGGLE_FAVORITE } from '../actions/mealsActions'
+import { TOGGLE_FAVORITE, SET_FILTERS } from '../actions/mealsActions'
 
 const initialState = {
     meals: MEALS,
@@ -26,6 +27,24 @@ const mealsReducer = (state = initialState, action) => {
                 // spread state, add new favorite meal w/ concat
                 return {...state, favoriteMeals: state.favoriteMeals.concat(meal)}
             }
+        case SET_FILTERS: // update filtered meals to reflect active filters
+            const appliedFilters = actions.filters
+            const updatedFilteredMeals = state.meals.filter(meal => {
+                if (appliedFilters.glutenFree && !meal.isGlutenFree) {
+                    return false
+                }
+                if (appliedFilters.lactoseFree && !meal.isLactoseFree) {
+                    return false
+                }
+                if (appliedFilters.vegetarian && !meal.isVegetarian) {
+                    return false
+                }
+                if (appliedFilters.vegan && !meal.isVegan) {
+                    return false
+                }
+                return true
+            })
+            return { ...state, filteredMeals: updatedFilteredMeals}
         default:
             return state
     }
