@@ -19,6 +19,7 @@ const MealContainer = props => {
     const availableMeals = useSelector(state => state.meals.meals)
     const mealId = props.navigation.getParam('mealId')
     const selectedMeal = availableMeals.find(meal => meal.id === mealId)
+    const isMealFavorite = useSelector(state => state.meals.favoriteMeals.some(meal => meal.id === mealId))
 
     const dispatch = useDispatch()
 
@@ -29,6 +30,10 @@ const MealContainer = props => {
     useEffect(() => {
         props.navigation.setParams({toggleFavorite: handleToggleFavorite})
     }, [handleToggleFavorite])
+
+    useEffect(() => {
+        props.navigation.setParams({isFavorite: isMealFavorite})
+    }, [isMealFavorite])
 
     return (
         <ScrollView>
@@ -52,6 +57,7 @@ const MealContainer = props => {
 MealContainer.navigationOptions = navigationData => {
     const mealTitle = navigationData.navigation.getParam('mealTitle')
     const toggleFavorite = navigationData.navigation.getParam('toggleFavorite')
+    const isFavorite = navigationData.navigation.getParam('isFavorite')
 
     return{
         headerTitle: mealTitle,
@@ -59,7 +65,7 @@ MealContainer.navigationOptions = navigationData => {
             {/* use Item to describe Icon you want to show */}
             <Item 
                 title='Favorite' 
-                iconName='ios-star-outline' 
+                iconName={isFavorite ? 'ios-star' : 'ios-star-outline'} 
                 onPress={toggleFavorite} />
         </HeaderButtons>
     }
